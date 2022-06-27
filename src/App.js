@@ -11,13 +11,25 @@ function App() {
     setColors([{ id: nanoid(), code }, ...colors]);
   };
 
+  const handleDeleteColor = (id) => {
+    setColors(colors.filter((color) => color.id !== id));
+  };
+
   return (
     <div className="App">
       <h1>My Color Saver App</h1>
       <ColorForm onSubmit={handleAddColor} />
       <div className="card-grid">
         {colors.map((color) => {
-          return <ColorBox color={color.code} key={color.id} />;
+          return (
+            <ColorBox
+              color={color.code}
+              key={color.id}
+              onDelete={() => {
+                handleDeleteColor(color.id);
+              }}
+            />
+          );
         })}
       </div>
     </div>
